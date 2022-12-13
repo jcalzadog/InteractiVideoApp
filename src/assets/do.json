@@ -1,0 +1,23 @@
+{
+    "10":
+    {
+        "type":"multi",
+        "question":"PREGUNTA",
+        "options":["respuesta a", "respuesta b", "respuesta c", "respuesta d"],
+        "actions":["dialog","dialog-jump","jump","jump"],
+        "params":["Correcto!",["Has fallado, vuelves al principio","0"],"56","100"]
+    }
+,
+    "3":
+    {
+        "type":"dialog",
+        "message":"SABIAS QUE EN LOS INICIOS DE LA REVOLUCION INDUSTRIAL...."
+    }
+,
+    "15":
+    {
+        "type":"dialog-jump",
+        "message":"Más informacion aqui: ENLACE",
+        "link":"www.google.es"
+    }
+}

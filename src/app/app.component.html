@@ -1,0 +1,45 @@
+<mat-toolbar color="primary">
+  <button
+    mat-icon-button [matMenuTriggerFor]="menuppal"
+    class="example-icon"
+    aria-label="Menú de la aplicación"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menuppal="matMenu">
+    <button (click)="open(mymodal)" mat-menu-item>
+      <mat-icon>help</mat-icon>
+      <span>Acerca De</span>
+    </button>
+    
+
+  </mat-menu>
+  <span>InteractiVideoApp</span>
+</mat-toolbar>
+
+<div class="d-flex justify-content-center nt-3">
+  <app-video></app-video>
+</div>
+
+<ng-template #mymodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Acerca de la aplicación</h4>
+    <button type="button" class="close" aria-label="Cerrar" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Aplicación de video interactivo realizada para la asignatura de Multimedia.<br>
+    Realizada por:
+    <ul>
+      <li>Diego Alba Ruiz</li>
+      <li>Jesús Calzado González</li>
+    </ul><br>
+    Es posible reemplazar el video y las acciones de interacción que ocurren reemplazando los ficheros vid.mp4 y do.json por otros. <br>
+    En el do.json incluido se puede ver como funciona el modelo de programación de interacción de la aplicación para hacer videos nuevos.<br>
+    Puede consultar mas detalles en la documentación del proyecto.
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cerrar</button>
+  </div>
+</ng-template>
