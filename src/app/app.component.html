@@ -1,45 +1,71 @@
-<mat-toolbar color="primary">
-  <button
-    mat-icon-button [matMenuTriggerFor]="menuppal"
-    class="example-icon"
-    aria-label="Menú de la aplicación"
-  >
-    <mat-icon>menu</mat-icon>
-  </button>
-  <mat-menu #menuppal="matMenu">
-    <button (click)="open(mymodal)" mat-menu-item>
-      <mat-icon>help</mat-icon>
-      <span>Acerca De</span>
-    </button>
-    
+<!DOCTYPE HTML>
+<html lang="es">
 
-  </mat-menu>
-  <span>InteractiVideoApp</span>
-</mat-toolbar>
+<head>
+  <title>InteractiVideo</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <noscript>
+    <link rel="stylesheet" href="/assets/css/noscript.css" />
+  </noscript>
+</head>
 
-<div class="d-flex justify-content-center nt-3">
-  <app-video></app-video>
-</div>
+<body class="landing is-preload">
 
-<ng-template #mymodal let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Acerca de la aplicación</h4>
-    <button type="button" class="close" aria-label="Cerrar" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">×</span>
-    </button>
+  <!-- Page Wrapper -->
+  <div id="page-wrapper">
+
+    <!-- Banner -->
+    <section id="banner">
+      <div class="inner">
+        <h2>InteractiVideo</h2>
+        <p>Aplicación de video interactivo<br />
+          realizada para la asignatura de Multimedia.<br />
+          <a href="../assets/documentacion.pdf" target="_blank">Documentación</a></p>
+      </div>
+      <a href="#one" class="more scrolly">Ver Vídeo</a>
+    </section>
+
+    <!-- One -->
+    <section id="one" class="wrapper style1 special">
+      <div class="justify-content-center nt-3">
+        <app-video class="vjs-big-play-centered"></app-video>
+      </div>
+      <br/>
+      <div class="modal-header justify-content-center">
+        <h4 class="modal-title" id="modal-basic-title">Acerca de la aplicación</h4>
+
+      </div>
+      <div class="modal-body">
+        Es posible reemplazar el video y las acciones de interacción que ocurren reemplazando los ficheros vid.mp4 y
+        do.json por otros. <br>
+        En el do.json incluido se puede ver como funciona el modelo de programación de interacción de la aplicación para
+        hacer videos nuevos.<br>
+        Puede consultar mas detalles en la documentación del proyecto.
+      </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+      <ul class="copyright">
+        <li>Multimedia</li>
+        <li>Autores: Diego Alba Ruiz y Jesus Calzado González</li>
+      </ul>
+    </footer>
+
   </div>
-  <div class="modal-body">
-    Aplicación de video interactivo realizada para la asignatura de Multimedia.<br>
-    Realizada por:
-    <ul>
-      <li>Diego Alba Ruiz</li>
-      <li>Jesús Calzado González</li>
-    </ul><br>
-    Es posible reemplazar el video y las acciones de interacción que ocurren reemplazando los ficheros vid.mp4 y do.json por otros. <br>
-    En el do.json incluido se puede ver como funciona el modelo de programación de interacción de la aplicación para hacer videos nuevos.<br>
-    Puede consultar mas detalles en la documentación del proyecto.
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cerrar</button>
-  </div>
-</ng-template>
+
+  <!-- Scripts -->
+  <script src="../assets/js/jquery.min.js"></script>
+  <script src="../assets/js/jquery.scrollex.min.js"></script>
+  <script src="../assets/js/jquery.scrolly.min.js"></script>
+  <script src="../assets/js/browser.min.js"></script>
+  <script src="../assets/js/breakpoints.min.js"></script>
+  <script src="../assets/js/util.js"></script>
+  <script src="../assets/js/main.js"></script>
+
+</body>
+
+</html>

@@ -27,6 +27,11 @@ export class VideoComponent implements OnInit, OnDestroy {
     let actionsString = JSON.stringify(actions) //JS value to json string
     let actionsJSON = JSON.parse(actionsString) //JSON string to JSON
 
+    //Para Modales que duren unos Segundos
+    let cerrarModal = false;
+    let iniModalTime = 0;
+    let modal: any;
+    let timeout = 4; // variable para poder meter luego dentro de la modal el tiempo
     this.player.on('timeupdate', () => {
       var nuevoTiempoStr = this.player?.currentTime().toString().split(".")[0];
       var nuevoTiempo = parseInt(nuevoTiempoStr!);//la exclamacion es necesaria porque si no ts te dice que como puede ser nulo no lo acepta, con eso "fuerzas" a ts a pensar que siempre tendra contenido (que si lo va a tener porque esta dentro del objeto player... como para no tenerlo)
@@ -34,6 +39,13 @@ export class VideoComponent implements OnInit, OnDestroy {
       //Para controlar que no se repita los modales y puedan reutilizarse
       if (nuevoTiempo != this.tiempo) {
         this.tiempo = nuevoTiempo;
+
+        //Como cambiamos de segundo comprobamos si hay que cerrar algun modal (el 4 para que dure abierto 4 segundos)
+        // Para DIALOG, COrrecto de multi y Jump
+        if (cerrarModal && ((this.tiempo - iniModalTime) == timeout)) {
+          modal.close();
+          cerrarModal = false;
+        }
 
         //Bucle para Recorrer los Tiempos del JSON
         for (let tiempos in actionsJSON) {
@@ -44,26 +56,50 @@ export class VideoComponent implements OnInit, OnDestroy {
 
             //Obtenemos datos de cada franja de Tiempo
             let value = actionsJSON[tiempos];
-            let modal: any;
 
             //ESTO POSIBLE EXPORTAR A UN METODO QUE TE LO HAGA PARA ASI EN LA MULTI REUTILIZAR Y NO TENER CODIGO REPETIDO
             switch (value["type"]) {
               case "dialog": {
-                //Creamos Modal para Dialogo 
-                modal = this.player?.createModal(value["message"], {});
+                var contDialog = document.createElement('p');
+                contDialog.innerHTML = value["message"];
+                if (value["timeout"]){
+                  timeout = parseInt(value["timeout"]);
+                }else {
+                  timeout = 4;
+                }
+                
+                modal = this.player?.createModal(contDialog, {});
+                modal.addClass('vjs-my-fancy-modal');
                 this.player?.play();
+                //Para cerrar luego el modal
+                cerrarModal = true;
+                iniModalTime = this.tiempo;
                 break;
               }
               case "dialog-jump": {
-                const contentJump = document.createElement('a');
-                contentJump.setAttribute("href", value["link"]);
-                contentJump.setAttribute("target", "_blank");
-                let aTexto = document.createTextNode(value["message"]);
-                contentJump.appendChild(aTexto);
-                
-                //let htmlJump = `<div> <a href="`+value["link"]+`" target="_blank">`+value["message"]+`</a> </div>`;
-                //contentJump.innerHTML = htmlJump;
+                const contentJump = document.createElement('div');
+                contentJump.innerHTML = `<div> <button class="btn btn-primary" id="jump">` + value["message"] + `</button></div>`
                 modal = this.player?.createModal(contentJump, {});
+                modal.addClass('vjs-my-fancy-modal');
+                this.player?.play();
+                //Para cerrar luego el modal
+                cerrarModal = true;
+                iniModalTime = this.tiempo;
+                timeout = 4;
+
+                let btnJump = document.getElementById("jump");
+                btnJump!.onclick = (e) => {
+                  this.player?.currentTime(value["jump"]);
+                  modal.close();
+                  this.player?.play();
+                }
+                break;
+              }
+              case "dialog-link": {
+                const contentLink = document.createElement('div');
+                contentLink.innerHTML = `<div>` + value["message"] + `</div>`
+                modal = this.player?.createModal(contentLink, {});
+                modal.addClass('vjs-my-fancy-modal');
                 break;
               }
               case "multi": {
@@ -76,7 +112,7 @@ export class VideoComponent implements OnInit, OnDestroy {
                 htmlMulti = htmlMulti + `</div>`;
                 contentMulti.innerHTML = htmlMulti;
                 modal = this.player?.createModal(contentMulti, {});
-
+                modal.addClass('vjs-my-fancy-modal');
                 //Ahora obteremos cada boton y le añadimos su respectiva accion
                 //AQUI PODRIAMOS REUTILIZAR EL METODO QUE DEPENDEN DEL TIPO HAGA UNA COSA U OTRA
                 for (let opcion in value["options"]) {
@@ -86,12 +122,15 @@ export class VideoComponent implements OnInit, OnDestroy {
                       modal.close();
                       modal = this.player?.createModal(value["params"][opcion], {});
                       this.player?.play();
+                      //Para cerrar luego el modal
+                      cerrarModal = true;
+                      iniModalTime = this.tiempo;
 
                     } else if (value["actions"][opcion] == "dialog-jump") {
                       modal.close();
                       this.player?.currentTime(value["params"][opcion][1]);
                       modal = this.player?.createModal(value["params"][opcion][0], {});
-                      
+                      modal.addClass('vjs-my-fancy-modal');
                     } else if (value["actions"][opcion] == "jump") {
                       this.player?.currentTime(value["params"][opcion]);
                       modal.close();
@@ -103,7 +142,7 @@ export class VideoComponent implements OnInit, OnDestroy {
                 break;
               }
               default: {
-                //statements; 
+                //Nada
                 break;
               }
             }

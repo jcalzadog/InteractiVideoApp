@@ -1,23 +1,62 @@
 {
-    "10":
-    {
-        "type":"multi",
-        "question":"PREGUNTA",
-        "options":["respuesta a", "respuesta b", "respuesta c", "respuesta d"],
-        "actions":["dialog","dialog-jump","jump","jump"],
-        "params":["Correcto!",["Has fallado, vuelves al principio","0"],"56","100"]
-    }
-,
-    "3":
+    "44":
     {
         "type":"dialog",
-        "message":"SABIAS QUE EN LOS INICIOS DE LA REVOLUCION INDUSTRIAL...."
-    }
-,
-    "15":
+        "message":"Recuerda<br>Nómada es aquella persona que va de un lugar a otro y no se establece en ningún sitio de forma permanente.<br>Sedentaria por el contrario se dice de las personas que se establecen en un sitio de forma permanente o larga duración."
+    },
+    "83":
+    {
+        "type":"dialog",
+        "timeout":"10",
+        "message":"Antiguo Régimen es el término que los revolucionarios franceses utilizaban para designar al sistema de gobierno anterior a la Revolución francesa de 1789-1799,<br> y que se aplicó también al resto de las monarquías europeas cuyo régimen era similar. <br>El término opuesto a este fue el de Nuevo Régimen."
+    },
+    "198":
+    {
+        "type":"dialog",
+        "timeout":"15",
+        "message":"El éxodo rural o éxodo campesino se refiere a la emigración, generalmente de gente joven (adolescentes y adultos jóvenes) del campo a la ciudad.<br> Este proceso es muy antiguo y se aceleró con la Revolución Industrial y, sobre todo, a partir de la segunda mitad del siglo xx. <br>Se suele considerar como un tipo especial de migración porque en ella, no solo se cambia de lugar de residencia, sino también de profesión, por motivos más que evidentes, <br>dadas las diferencias geográficas tan grandes que existen entre las oportunidades, número y características de los diferentes tipos de empleo que existen en el campo, con relación a la ciudad, <br>además de los cambios en los aspectos sociales, culturales y medioambientales de la vida urbana."
+    },
+    "167":
+    {
+        "type":"multi",
+        "question":"¿Qué nueva clase surgió con la desaparición de la brecha entre privilegiados y pueblo llano?",
+        "options":["Burguesía", "Clase media", "Proletariado"],
+        "actions":["dialog","dialog-jump","dialog-jump"],
+        "params":["Correcto!",["Has fallado, vuelves al principio","0"],["Has fallado, vuelves al principio","0"]]
+    },
+    "233":
+    {
+        "type":"multi",
+        "question":"PREGUNTA: ¿Qué vacuna descubrió el Edward Jenner?",
+        "options":["Varicela", "Lupus", "Viruela", "Me rindo (FIN)"],
+        "actions":["dialog-jump","dialog-jump","dialog","jump"],
+        "params":[["Como no te has enterado de nada vuelves al principio!","0"],["Por desgracia el Lupus aún no tiene cura. Repasemos.","200"],"Correcto!","498"]
+    },
+    "104":
+    {
+        "type":"dialog-link",
+        "message":"Para saber más sobre la burguesía puedes seguir este <a href='https://es.wikipedia.org/wiki/Burgues%C3%ADa' target='_blank'>ENLACE</a>"
+    },
+    "366":
+    {
+        "type":"dialog-link",
+        "message":"Para saber más sobre las locomotoras sigue este <a href='https://es.wikipedia.org/wiki/Locomotora' target='_blank'>ENLACE</a>"
+    },
+    "272":
+    {
+        "type":"dialog-link",
+        "message":"Más sobre la energía térmica en este <a href='https://es.wikipedia.org/wiki/Energ%C3%ADa_t%C3%A9rmica' target='_blank'>ENLACE</a>"
+    },
+    "151":
     {
         "type":"dialog-jump",
-        "message":"Más informacion aqui: ENLACE",
-        "link":"www.google.es"
+        "message":"Repasar capitalismo",
+        "jump":"107"
+    },
+    "300":
+    {
+        "type":"dialog-jump",
+        "message":"Repasar máquina de vapor",
+        "jump":"258"
     }
 }
